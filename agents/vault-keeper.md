@@ -34,7 +34,7 @@ fine for condensing or restructuring large notes.
 | Counts, sizes, condense candidates | `vault-stats` |
 | Close out one finished task or milestone | `vault-task-close` |
 | Batch-condense a finished milestone | `obsidian-archive-condense` |
-| A note did not appear on another device, an MCP write returned OK but nothing propagated, the bridge echoes or floods | `obsidian-sync-triage` |
+| A note did not appear on another device, an MCP write returned OK but nothing propagated, the bridge echoes or floods | `obsidian-sync-triage` if installed (personal skill, not part of this plugin); otherwise report the mismatch and stop |
 
 Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow the schema.
 
@@ -48,8 +48,8 @@ Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow th
   `vault_write`. The script reads the vault itself; that is the one sanctioned filesystem read.
 - Lint findings on existing notes are proposals. Report them; do not rewrite them unasked. New and
   edited notes must have zero `error` findings before they are written.
-- If a read-back does not match what you wrote, stop and switch to `obsidian-sync-triage`. Do not
-  retry the write.
+- If a read-back does not match what you wrote, stop. Use `obsidian-sync-triage` if it is installed, otherwise report the
+  mismatch to Aaron. Do not retry the write.
 - Prefer `vault_patch` on a heading over rewriting a note. `vault_patch` heading targets are JSON
   arrays.
 - Report only what you checked: paths written, lint result, index lines added, anything left

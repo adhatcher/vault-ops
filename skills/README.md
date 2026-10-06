@@ -16,7 +16,6 @@ The vault's conventions live in the vault note `01 Projects/Obsidian Knowledge S
 | [`vault-stats`](vault-stats/) | Note counts by project, type and status, plus notes large enough to condense. |
 | [`vault-task-close`](vault-task-close/) | Archive and condense a finished task or milestone, then update the roadmap and indexes. |
 | [`obsidian-archive-condense`](obsidian-archive-condense/) | Batch-condense completed tasks and milestone notes after archiving the originals. |
-| [`obsidian-sync-triage`](obsidian-sync-triage/) | Diagnose and repair sync failures across the Mac vault, headless Obsidian on Unraid, CouchDB, livesync-bridge and iOS. |
 
 ## How they fit together
 
@@ -28,9 +27,6 @@ vault-ops/
   references/     one procedure per command, plus mcp-write-flow.md
   templates/      one template per note type (placeholders are {{like-this}})
   scripts/        vault_lint.py
-obsidian-sync-triage/
-  SKILL.md        topology, failure modes, repairs
-  scripts/        obsidian-sync-check.sh, couchdb-peers.py
 ```
 
 ## Scripts
@@ -41,9 +37,6 @@ uv run --script vault-ops/scripts/vault_lint.py check <draft.md> --path "<vault-
 uv run --script vault-ops/scripts/vault_lint.py sweep [--project "<name>"] [--min-severity warn]
 uv run --script vault-ops/scripts/vault_lint.py stats [--project "<name>"]
 uv run --script vault-ops/scripts/vault_lint.py next-adr "<project>"
-
-# Sync diagnostics (read-only; needs the UNRAID ssh alias)
-obsidian-sync-triage/scripts/obsidian-sync-check.sh ["Vault/Relative/Note.md"]
 ```
 
 The vault is read from `/Users/aaron/Obsidian`; set `VAULT_ROOT` or pass `--vault` to override.

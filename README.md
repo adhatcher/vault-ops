@@ -10,7 +10,7 @@ The vault itself is not in this repo (filesystem copy at `/Users/aaron/Obsidian`
 - **`hooks/hooks.json` + `hooks/vault-guard.py`**: plugin-level PreToolUse hook that blocks `Read` of anything under the vault and `Bash` commands that name the vault path (heredoc bodies ignored). It acts only when the hook input's `agent_type` ends in `vault-keeper`, so other sessions are unaffected. A tripwire, not a sandbox.
 - **`skills/vault-ops`** is the shared core: hard rules, `references/` (one procedure per command), `templates/` (one per note type) and `scripts/vault_lint.py`.
 - **Thin command skills** (`vault-project-init`, `vault-note-new`, `vault-lint`, `vault-index`, `vault-stats`, `vault-task-close`) are ~17-line wrappers that load `vault-ops/SKILL.md` and then one file in `vault-ops/references/`. Put procedure changes in the reference, not the wrapper.
-- **Standalone skills**: `obsidian-archive-condense` and `obsidian-sync-triage` (diagnose sync failures across the Mac vault, headless Obsidian on Unraid, CouchDB, livesync-bridge, iOS).
+- **Standalone skill**: `obsidian-archive-condense`. Sync diagnosis (`obsidian-sync-triage`) is a personal skill kept outside this plugin in `~/.agents/skills/`; the agent refers to it only if it is installed.
 - Skills refer to bundled files as `${CLAUDE_PLUGIN_ROOT}/skills/...`, which only resolves when loaded as a plugin. Plugin components are namespaced (`vault-keeper:vault-lint`). The plugin loader does not follow symlinks in component paths.
 
 See also [`skills/README.md`](skills/README.md).
@@ -23,8 +23,6 @@ uv run --script $S check <draft.md> --path "<vault-relative path>"   # lint one 
 uv run --script $S sweep [--project "<name>"] [--min-severity warn]  # whole vault, read-only
 uv run --script $S stats [--project "<name>"]
 uv run --script $S next-adr "<project>"
-
-skills/obsidian-sync-triage/scripts/obsidian-sync-check.sh ["Vault/Relative/Note.md"]   # read-only; needs ssh alias UNRAID
 ```
 
 `vault_lint.py` is a PEP 723 script (pyyaml pinned in its header), so use `uv run --script`; no venv to manage. It is strictly read-only. It loads the schema from the fenced `# vault-schema` yaml block in the vault's schema note, layered over `DEFAULT_SCHEMA` in the script, so a rule change usually belongs in the vault note rather than the script.

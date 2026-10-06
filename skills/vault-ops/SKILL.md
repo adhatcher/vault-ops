@@ -19,7 +19,7 @@ Read it before creating or restructuring anything. It defines note types, frontm
 
 1. **Write only through the Obsidian MCP** (`vault_write`, `vault_patch`, `vault_append`, `vault_copy`, `vault_move`, `vault_delete`). The vault syncs through CouchDB; a filesystem write can strand a note. Reading the filesystem copy at `/Users/aaron/Obsidian` is fine, and the lint script does exactly that.
 2. **Archive first.** Before overwriting or condensing a note, `vault_copy` it into `_Archive/` and confirm the copy. The vault has no git history, so the copy is the only undo.
-3. **An OK from a write is not proof of sync.** After a batch, read one note back (`vault_read`) and confirm it matches. If it does not, stop and use the `obsidian-sync-triage` skill.
+3. **An OK from a write is not proof of sync.** After a batch, read one note back (`vault_read`) and confirm it matches. If it does not, stop and use the `obsidian-sync-triage` skill if it is installed (personal skill, not in this plugin); otherwise report the mismatch.
 4. **Lint is advisory for existing notes, blocking for new ones.** New or edited notes must have no `error` findings before they are written. Report existing-note findings as proposals; do not rewrite them unasked.
 5. **Never invent facts** (commits, dates, test counts, verdicts). If the source does not state it, leave it out.
 6. **Do not touch** `_Archive`, `Archive`, `.obsidian`, `Excalidraw` or `05 Memories` unless the user names them.
@@ -54,7 +54,7 @@ uv run --script $S next-adr "<project>"                                      # n
 ## Related skills
 
 - `obsidian-archive-condense`: batch condensing of a finished milestone. `/vault-task-close` reuses its archive-first mechanics for a single task and adds lessons and index upkeep.
-- `obsidian-sync-triage`: when a write does not appear on another device.
+- `obsidian-sync-triage` (personal skill, only if installed): when a write does not appear on another device.
 - `adr-authoring`: Bourbon Book repository ADRs. Vault ADRs follow the schema; Bourbon Book vault ADRs mirror the repo and keep 4-digit numbers.
 
 ## Procedures
