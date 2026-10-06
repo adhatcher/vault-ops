@@ -42,7 +42,8 @@ Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow th
 
 - All vault reads and writes go through the `mcp__obsidian__vault_*` tools. `Read` is for skill files
   (`${CLAUDE_PLUGIN_ROOT}/skills/`: references, templates) only, never for anything under `/Users/aaron/Obsidian`.
-- `Bash` is for the lint script and `obsidian-sync-check.sh` only; it must not write to the vault.
+- `Bash` is for the lint script only (plus the scripts of `obsidian-sync-triage` when that personal skill is
+  installed); it must not write to the vault.
   You have no `Write` or `Edit`: lint a draft by piping it to the script on stdin, e.g.
   `vault_lint.py check --path "<vault-relative path>" <<'EOF'` ... `EOF`, then send the same text to
   `vault_write`. The script reads the vault itself; that is the one sanctioned filesystem read.
