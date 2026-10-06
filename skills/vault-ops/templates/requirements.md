@@ -1,6 +1,6 @@
 ---
 title: {{title}}
-description: {{one-sentence statement of what must be true}}
+description: "{{one-sentence statement of what must be true}}"
 project: {{project-slug}}
 type: requirements
 status: draft

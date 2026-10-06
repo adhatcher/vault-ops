@@ -61,6 +61,9 @@ DEFAULT_SCHEMA = {
     "adr_digits_overrides": {},
     "exclude_top": [".obsidian", ".trash", ".git", "Excalidraw", "05 Memories"],
     "frozen_dirs": ["_Archive", "Archive"],
+    "index_like_types": ["index", "milestone"],
+    "index_like_names": ["_Milestone.md"],
+    "hop_dirs": ["records"],
     "oversized_kb": 40,
     "condense_kb": 8,
     "condense_types": ["task", "record", "milestone", "plan", "handoff"],
@@ -385,20 +388,37 @@ def sweep_rules(v: Vault, only: str | None) -> list[Finding]:
         n = v.notes[rel]
         return Path(rel).name.startswith("00 ") or str((n.fm or {}).get("type")) == "index"
 
-    # indexes -> which notes they link to
-    linked_from_index: dict[str, set[str]] = defaultdict(set)
-    for rel in v.notes:
-        if not is_index(rel):
-            continue
+    def is_index_like(rel: str) -> bool:
+        """Notes that act as an index for their scope: `00 …` / type index, plus milestone notes."""
+        n = v.notes[rel]
+        return (is_index(rel) or Path(rel).name in s["index_like_names"]
+                or str((n.fm or {}).get("type")) in s["index_like_types"])
+
+    def outlinks(rel: str) -> set[str]:
         body = strip_code(v.notes[rel].body)
+        out: set[str] = set()
         for m in WIKILINK_RE.finditer(body):
             t = m.group(2).replace("\\|", "|").split("|")[0].split("#")[0].split("^")[0]
-            for hit in v.resolve_wiki(t, rel):
-                linked_from_index[hit].add(rel)
+            out.update(h for h in v.resolve_wiki(t, rel) if h in v.notes)
         for m in MDLINK_RE.finditer(body):
-            hit = v.exists_rel(rel, m.group(2).strip()) if not SCHEME_RE.match(m.group(2).strip()) else None
-            if hit and hit.endswith(".md"):
-                linked_from_index[hit].add(rel)
+            tgt = m.group(2).strip()
+            if not SCHEME_RE.match(tgt):
+                hit = v.exists_rel(rel, tgt)
+                if hit and hit.endswith(".md"):
+                    out.add(hit)
+        out.discard(rel)
+        return out
+
+    links_out = {rel: outlinks(rel) for rel in v.notes}
+    indexed: set[str] = set()
+    for rel, targets in links_out.items():
+        if is_index_like(rel):
+            indexed.update(targets)
+    # a note under a hop dir (e.g. records/) counts when an already-indexed note links to it
+    for rel in v.notes:
+        if rel not in indexed and any(p in s["hop_dirs"] for p in rel.split("/")[:-1]):
+            if any(rel in links_out[src] for src in indexed if src in links_out):
+                indexed.add(rel)
 
     # project / area roots
     roots: dict[str, list[str]] = defaultdict(list)
@@ -457,8 +477,8 @@ def sweep_rules(v: Vault, only: str | None) -> list[Finding]:
             continue
         if is_index(rel) or rel == "00 Home.md":
             continue
-        if v.owner_of(rel) and rel not in linked_from_index:
-            add("not-in-index", rel, "not linked from any 00 … Index note")
+        if v.owner_of(rel) and rel not in indexed:
+            add("not-in-index", rel, "not linked from an index (00 … Index or milestone) note")
 
     dup = {b: rs for b, rs in v.by_base.items() if len([r for r in rs if v.lintable(r)]) > 1}
     for b, rs in sorted(dup.items()):

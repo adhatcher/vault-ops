@@ -2,7 +2,7 @@
 id: {{id}}
 milestone: {{milestone}}
 title: "{{title}}"
-description: {{one-sentence objective}}
+description: "{{one-sentence objective}}"
 project: {{project-slug}}
 type: task
 status: open

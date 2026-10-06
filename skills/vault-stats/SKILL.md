@@ -10,8 +10,8 @@ Report vault statistics and condense candidates (see the /vault-stats section of
 
 Arguments: $ARGUMENTS
 
-1. Read `~/.agents/skills/vault-ops/SKILL.md` (hard rules, write flow, MCP gotchas).
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/SKILL.md` (hard rules, write flow, MCP gotchas).
 2. Read the Vault Schema note in the vault: `01 Projects/Obsidian Knowledge System/Operations/Vault Schema.md`.
-3. Follow `~/.agents/skills/vault-ops/references/lint-and-stats.md` exactly.
+3. Follow `${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/references/lint-and-stats.md` exactly.
 
 All vault writes go through the Obsidian MCP. Archive before overwriting. Lint before writing. Read back after writing.

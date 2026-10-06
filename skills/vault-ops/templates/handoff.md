@@ -1,6 +1,6 @@
 ---
 title: {{title}}
-description: {{one-sentence summary of what is handed off}}
+description: "{{one-sentence summary of what is handed off}}"
 project: {{project-slug}}
 type: handoff
 status: done

@@ -29,7 +29,7 @@ Read it before creating or restructuring anything. It defines note types, frontm
 Every create or edit follows `references/mcp-write-flow.md`: draft in the scratchpad, `check` it with the lint script, fix errors, write through the MCP, read back, update the index. Summary:
 
 ```bash
-S=~/.agents/skills/vault-ops/scripts/vault_lint.py
+S=${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/scripts/vault_lint.py
 uv run --script $S check <draft.md> --path "<vault-relative target path>"   # exit 1 = errors
 uv run --script $S sweep [--project "<name>"] [--min-severity warn]          # whole vault, read-only
 uv run --script $S stats [--project "<name>"]                                # counts, condense candidates
