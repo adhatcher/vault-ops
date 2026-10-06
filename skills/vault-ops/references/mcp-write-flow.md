@@ -34,7 +34,7 @@ For an edit with `vault_patch`, `vault_read` the note, apply the same edit to th
 ## 4. Verify
 
 1. `vault_read` the note. Confirm `frontmatter` parsed as expected and `unresolvedLinks` is empty.
-2. For a batch, also confirm the file reached the Mac copy: `ls`/`diff` the path under `/Users/aaron/Obsidian` after a few seconds. A missing or different file is the signature of a stranded write; stop and run `obsidian-sync-triage` if it is installed (personal skill, not in this plugin); otherwise report it.
+2. For a batch, also confirm the file reached the Mac copy: `ls`/`diff` the path under `/Users/aaron/Obsidian` after a few seconds. A missing or different file is the signature of a stranded write; stop and report it.
 
 ## 5. Index
 

@@ -10,7 +10,7 @@ The vault itself is not in this repo (filesystem copy at `/Users/aaron/Obsidian`
 - **`hooks/hooks.json` + `hooks/vault-guard.py`**: plugin-level PreToolUse hook that blocks `Read` of anything under the vault and `Bash` commands that name the vault path (heredoc bodies ignored). It acts only when the hook input's `agent_type` ends in `vault-keeper`, so other sessions are unaffected. A tripwire, not a sandbox.
 - **`skills/vault-ops`** is the shared core: hard rules, `references/` (one procedure per command), `templates/` (one per note type) and `scripts/vault_lint.py`.
 - **Thin command skills** (`vault-project-init`, `vault-note-new`, `vault-lint`, `vault-index`, `vault-stats`, `vault-task-close`) are ~17-line wrappers that load `vault-ops/SKILL.md` and then one file in `vault-ops/references/`. Put procedure changes in the reference, not the wrapper.
-- **Standalone skill**: `obsidian-archive-condense`. Sync diagnosis (`obsidian-sync-triage`) is a personal skill kept outside this plugin in `~/.agents/skills/`; the agent refers to it only if it is installed.
+- **Standalone skill**: `obsidian-archive-condense`.
 - Skills refer to bundled files as `${CLAUDE_PLUGIN_ROOT}/skills/...`, which only resolves when loaded as a plugin. Plugin components are namespaced (`vault-keeper:vault-lint`). The plugin loader does not follow symlinks in component paths.
 
 See also [`skills/README.md`](skills/README.md).

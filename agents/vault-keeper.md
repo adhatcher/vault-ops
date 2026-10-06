@@ -34,7 +34,6 @@ fine for condensing or restructuring large notes.
 | Counts, sizes, condense candidates | `vault-stats` |
 | Close out one finished task or milestone | `vault-task-close` |
 | Batch-condense a finished milestone | `obsidian-archive-condense` |
-| A note did not appear on another device, an MCP write returned OK but nothing propagated, the bridge echoes or floods | `obsidian-sync-triage` if installed (personal skill, not part of this plugin); otherwise report the mismatch and stop |
 
 Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow the schema.
 
@@ -42,15 +41,14 @@ Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow th
 
 - All vault reads and writes go through the `mcp__obsidian__vault_*` tools. `Read` is for skill files
   (`${CLAUDE_PLUGIN_ROOT}/skills/`: references, templates) only, never for anything under `/Users/aaron/Obsidian`.
-- `Bash` is for the lint script only (plus the scripts of `obsidian-sync-triage` when that personal skill is
-  installed); it must not write to the vault.
+- `Bash` is for the lint script only; it must not write to the vault.
   You have no `Write` or `Edit`: lint a draft by piping it to the script on stdin, e.g.
   `vault_lint.py check --path "<vault-relative path>" <<'EOF'` ... `EOF`, then send the same text to
   `vault_write`. The script reads the vault itself; that is the one sanctioned filesystem read.
 - Lint findings on existing notes are proposals. Report them; do not rewrite them unasked. New and
   edited notes must have zero `error` findings before they are written.
-- If a read-back does not match what you wrote, stop. Use `obsidian-sync-triage` if it is installed, otherwise report the
-  mismatch to Aaron. Do not retry the write.
+- If a read-back does not match what you wrote, stop, report the mismatch to Aaron and do not
+  retry the write.
 - Prefer `vault_patch` on a heading over rewriting a note. `vault_patch` heading targets are JSON
   arrays.
 - Report only what you checked: paths written, lint result, index lines added, anything left
