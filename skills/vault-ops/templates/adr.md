@@ -1,6 +1,6 @@
 ---
 title: "ADR {{number}}: {{title}}"
-description: {{one-sentence decision}}
+description: "{{one-sentence decision}}"
 project: {{project-slug}}
 type: adr
 status: proposed

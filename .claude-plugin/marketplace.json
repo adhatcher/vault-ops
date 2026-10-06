@@ -1,0 +1,8 @@
+{
+  "name": "vault-keeper-local",
+  "description": "Local marketplace for the vault-keeper plugin, which keeps Aaron's Obsidian vault consistent with the Vault Schema.",
+  "owner": { "name": "Aaron Hatcher" },
+  "plugins": [
+    { "name": "vault-keeper", "source": "./", "description": "Obsidian vault upkeep agent, skills and guard hook." }
+  ]
+}

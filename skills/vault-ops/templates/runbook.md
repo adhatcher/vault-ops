@@ -1,6 +1,6 @@
 ---
 title: {{title}}
-description: {{one-sentence purpose}}
+description: "{{one-sentence purpose}}"
 project: {{project-slug}}
 type: runbook
 status: active

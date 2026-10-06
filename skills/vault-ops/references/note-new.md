@@ -22,7 +22,7 @@ If the project is not given, infer it from the user's context; if you cannot, as
 ## Procedure
 
 1. Read the Vault Schema. Resolve the project root (`01 Projects` or `02 Areas`) and its slug.
-2. For an ADR, get the number: `uv run --script ~/.agents/skills/vault-ops/scripts/vault_lint.py next-adr "<Project>"`. It applies the project's padding (3 digits by default). Never pick a number by eye.
+2. For an ADR, get the number: `uv run --script ${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/scripts/vault_lint.py next-adr "<Project>"`. It applies the project's padding (3 digits by default). Never pick a number by eye.
 3. `vault_list` the target folder. If a note with that name exists, stop and ask; never overwrite.
 4. Copy the template and fill every placeholder from what the user told you. Ask for anything essential that is missing (an ADR needs its context and decision; a task needs an objective and acceptance). Set `created` and `updated` to today.
 5. Follow `mcp-write-flow.md`: scratchpad draft, `check`, `vault_write`, read back.

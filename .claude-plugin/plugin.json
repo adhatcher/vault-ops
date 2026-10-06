@@ -1,0 +1,6 @@
+{
+  "name": "vault-keeper",
+  "version": "0.1.0",
+  "description": "Keeps Aaron's Obsidian vault consistent with the Vault Schema: one agent, its skills, and a guard hook that forces vault access through the Obsidian MCP.",
+  "author": { "name": "Aaron Hatcher" }
+}

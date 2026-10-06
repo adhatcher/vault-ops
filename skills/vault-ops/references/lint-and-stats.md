@@ -5,7 +5,7 @@ Report on vault health. Read-only: nothing is changed without separate approval.
 ## /vault-lint [project] [--min-severity error|warn|info]
 
 ```bash
-uv run --script ~/.agents/skills/vault-ops/scripts/vault_lint.py sweep [--project "<name>"] [--min-severity warn]
+uv run --script ${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/scripts/vault_lint.py sweep [--project "<name>"] [--min-severity warn]
 ```
 
 Exit status 1 means at least one `error`. Use `--json` when you need to process findings.
@@ -47,7 +47,7 @@ After the script, read the recently changed notes and look for what a script can
 ## /vault-stats [project]
 
 ```bash
-uv run --script ~/.agents/skills/vault-ops/scripts/vault_lint.py stats [--project "<name>"]
+uv run --script ${CLAUDE_PLUGIN_ROOT}/skills/vault-ops/scripts/vault_lint.py stats [--project "<name>"]
 ```
 
 Report note counts by project, type and status, the number without frontmatter, and the condense candidates. Point the user at `/vault-task-close` for finished tasks that are large.

@@ -1,6 +1,6 @@
 ---
 title: {{Project Name}} Roadmap
-description: The single authoritative roadmap and status table for {{Project Name}}.
+description: "The single authoritative roadmap and status table for {{Project Name}}."
 project: {{project-slug}}
 type: roadmap
 status: active

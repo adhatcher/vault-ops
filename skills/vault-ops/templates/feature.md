@@ -1,6 +1,6 @@
 ---
 title: {{title}}
-description: {{one-sentence description of the feature or fix}}
+description: "{{one-sentence description of the feature or fix}}"
 project: {{project-slug}}
 type: feature
 status: proposed
