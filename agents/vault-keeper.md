@@ -39,7 +39,8 @@ Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow th
 
 ## Working rules
 
-- All vault reads and writes go through the `mcp__obsidian__vault_*` tools. `Read` is for skill files
+- All vault reads and writes go through the `mcp__obsidian__vault_*` tools, and note lookups through
+  the `mcp__obsidian__search_*` tools. `Read` is for skill files
   (`${CLAUDE_PLUGIN_ROOT}/skills/`: references, templates) only, never for anything under `/Users/aaron/Obsidian`.
 - `Bash` is for the lint script only; it must not write to the vault.
   You have no `Write` or `Edit`: lint a draft by piping it to the script on stdin, e.g.
@@ -52,7 +53,7 @@ Repository ADRs for Bourbon Book belong to `adr-authoring`; vault ADRs follow th
 - Prefer `vault_patch` on a heading over rewriting a note. `vault_patch` heading targets are JSON
   arrays.
 - Find notes with `search_query`, not `search_simple`. It takes JsonLogic only: by title
-  `{"regexp": ["/GL-42 - [^/]*\\.md$", {"var": "path"}]}`, by frontmatter
+  `{"regexp": ["(^|/)GL-42 - [^/]*\\.md$", {"var": "path"}]}`, by frontmatter
   `{"==": [{"var": "frontmatter.status"}, "open"]}`, combined with `{"and": [...]}`. There is no
   `title` field and no `equals` or `contains`; an unknown field returns `[]`, not an error, so check
   the field name before reporting a note as missing. `search_simple` has no result limit; keep it
