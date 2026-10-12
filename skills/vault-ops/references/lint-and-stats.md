@@ -16,7 +16,7 @@ Exit status 1 means at least one `error`. Use `--json` when you need to process 
 2. Group findings by project, then by rule. Lead with errors.
 3. Separate **real defects** from **noise** before presenting. Verify before asserting:
    - `archive-pointer`: confirm with `vault_list` that the archive folder really is missing. A missing archive means the original is gone; this is serious and must be reported, not repaired by guessing.
-   - `broken-link`: check for a rename or a retired note (search with `search_simple`). If Obsidian itself reports the link as unresolved (`vault_read` → `unresolvedLinks`) it is real.
+   - `broken-link`: check for a rename or a retired note by searching paths with `search_query`, e.g. `{"in": ["<old name>", {"var": "path"}]}`; this also covers `_Archive`. If Obsidian itself reports the link as unresolved (`vault_read` → `unresolvedLinks`) it is real.
    - `not-in-index` on a project with no indexes at all is one finding (`missing-index`) in disguise; report it once.
 4. Propose fixes grouped by effort, and ask which to apply. Do not apply anything in the same turn as the report unless the user said to.
 5. When applying approved fixes, use `mcp-write-flow.md` and archive-first.
